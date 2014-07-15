@@ -58,6 +58,9 @@ def main_loop(rpchandle, args):
         else:
             break
     
+    string = "last: block " + "% 6d" % block['height'] + "\n"
+    sys.stderr.write(string)
+
     print "# end"
 
 if __name__ == '__main__':
