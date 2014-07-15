@@ -1,0 +1,7 @@
+*.pyc
+# ignore configuration files
+*.conf
+# include example.conf
+!example.conf
+# ignore dependencies
+bitcoinrpc/*
