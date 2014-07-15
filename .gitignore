@@ -5,3 +5,5 @@
 !example.conf
 # ignore dependencies
 bitcoinrpc/*
+# ignore generated data file
+data
