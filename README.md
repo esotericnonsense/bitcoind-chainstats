@@ -45,6 +45,6 @@ found bitcoind-chainstats useful? donations are your way of showing that!
 
 my main machine is currently a 6 year old Atom laptop. upgrading that would be rather useful. cheers!
 
-![ScreenShot](/screenshots/donation-qr.png)
+![ScreenShot](/img/donation-qr.png)
 
 **1FrogqMmKWtp1AQSyHNbPUm53NnoGBHaBo**
