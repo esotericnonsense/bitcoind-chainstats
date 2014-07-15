@@ -35,4 +35,19 @@ def strip_block(full_block):
         block['fees_per_tx'] = 0
         block['fees_per_kb'] = 0
 
+    if 'nethash144' in full_block:
+        block['nethash144'] = full_block['nethash144']
+    else:
+        block['nethash144'] = 0
+
+    if 'nethash432' in full_block:
+        block['nethash432'] = full_block['nethash432']
+    else:
+        block['nethash432'] = 0
+
+    if 'nethash1008' in full_block:
+        block['nethash1008'] = full_block['nethash1008']
+    else:
+        block['nethash1008'] = 0
+
     return block

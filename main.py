@@ -11,6 +11,55 @@ import ConfigParser, argparse, sys
 import rpc
 import process
 
+def main_loop(rpchandle, args):
+    block = rpc.getblock(rpchandle, args.starting_block)
+    lastblock = block['time']
+
+    header= "# height                                                           hash        time interval"
+    header += "  chainwork            diff             nethash144             nethash432            nethash1008     size"
+    header += "    tx     coinbase        fees  fee_per_tx  fee_per_kb"
+    print header
+
+    while block['height'] < args.starting_block + args.blocks_to_get:
+        if block:
+            block = process.strip_block(block)
+
+            block['interval'] = block['time'] - lastblock
+            lastblock = block['time']
+
+            string = "%06d" % block['height']
+            string += " " + block['hash']
+            string += " " + "% 10d" % block['time']
+            string += " " + "% 8d" % block['interval']
+            string += " " + "% 9.6f" % block['chainwork']
+            string += " " + "% 15d" % block['difficulty']
+            string += " " + "% 22d" % block['nethash144']
+            string += " " + "% 22d" % block['nethash432']
+            string += " " + "% 22d" % block['nethash1008']
+            string += " " + "% 8d" % block['size']
+            string += " " + "% 5d" % block['transactions']
+            string += " " + "% 12.8f" % block['coinbase_amount']
+            string += " " + "% 10.8f" % block['fees']
+            string += " " + "% 10.8f" % block['fees_per_tx']
+            string += " " + "% 10.8f" % block['fees_per_kb']
+
+            print string
+
+            if not (block['height'] % 50) and not block['height'] == args.starting_block:
+                string = "progress: block " + "% 6d" % block['height'] + "\n"
+                sys.stderr.write(string)
+
+            if 'nextblockhash' in block:
+                block = rpc.getblock(rpchandle, block['nextblockhash'])
+
+            else:
+                break
+
+        else:
+            break
+    
+    print "# end"
+
 if __name__ == '__main__':
     # parse commandline arguments
     parser = argparse.ArgumentParser()
@@ -39,47 +88,4 @@ if __name__ == '__main__':
         print "first getinfo failed (failed to connect to bitcoind?)"
         sys.exit(1) 
 
-    block = rpc.getblock(rpchandle, args.starting_block)
-    lastblock = block['time']
-
-    header= "# height                                                           hash        time interval"
-    header += "  chainwork            diff     size"
-    header += "    tx     coinbase        fees  fee_per_tx  fee_per_kb"
-    print header
-
-    while block['height'] < args.starting_block + args.blocks_to_get:
-        if block:
-            block = process.strip_block(block)
-
-            block['interval'] = block['time'] - lastblock
-            lastblock = block['time']
-
-            string = "%06d" % block['height']
-            string += " " + block['hash']
-            string += " " + "% 10d" % block['time']
-            string += " " + "% 8d" % block['interval']
-            string += " " + "% 9.6f" % block['chainwork']
-            string += " " + "% 15d" % block['difficulty']
-            string += " " + "% 8d" % block['size']
-            string += " " + "% 5d" % block['transactions']
-            string += " " + "% 12.8f" % block['coinbase_amount']
-            string += " " + "% 10.8f" % block['fees']
-            string += " " + "% 10.8f" % block['fees_per_tx']
-            string += " " + "% 10.8f" % block['fees_per_kb']
-
-            print string
-
-            if not (block['height'] % 50):
-                string = "progress: block " + "% 6d" % block['height'] + "\n"
-                sys.stderr.write(string)
-
-            if 'nextblockhash' in block:
-                block = rpc.getblock(rpchandle, block['nextblockhash'])
-
-            else:
-                break
-
-        else:
-            break
-
-    print "# end"
+    main_loop(rpchandle, args)

@@ -33,7 +33,13 @@ def getblock(rpchandle, block_to_get):
                     coinbase_amount += output['value']
             
             block['coinbase_amount'] = coinbase_amount
-        except: pass 
+        except: pass
+
+        try:
+            block['nethash144'] = rpchandle.getnetworkhashps(144, block['height'])
+            block['nethash432'] = rpchandle.getnetworkhashps(432, block['height'])
+            block['nethash1008'] = rpchandle.getnetworkhashps(1008, block['height'])
+        except: pass
 
         return block
 
