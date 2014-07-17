@@ -15,10 +15,11 @@ def main_loop(rpchandle, args):
     block = rpc.getblock(rpchandle, args.starting_block)
     lastblock = block['time']
 
-    header= "# height                                                           hash        time interval"
-    header += "  chainwork            diff             nethash144             nethash432            nethash1008     size"
-    header += "    tx     coinbase        fees  fee_per_tx  fee_per_kb"
-    print header
+    if args.labels:
+        header= "height                                                             hash        time interval"
+        header += "  chainwork            diff             nethash144             nethash432            nethash1008     size"
+        header += "    tx     coinbase        fees  fee_per_tx  fee_per_kb"
+        print header
 
     while block['height'] < args.starting_block + args.blocks_to_get:
         if block:
@@ -61,14 +62,15 @@ def main_loop(rpchandle, args):
     string = "last: block " + "% 6d" % block['height'] + "\n"
     sys.stderr.write(string)
 
-    print "# end"
-
 if __name__ == '__main__':
     # parse commandline arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config",
                         help="path to config file [bitcoind-chainstats.conf]",
                         default="bitcoind-chainstats.conf")
+    parser.add_argument("-l", "--labels",
+                        help="print column labels before data",
+                        action="store_true")
     parser.add_argument('starting_block', type=int, nargs="?",
                         help='block to start from',
                         default=0)
