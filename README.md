@@ -3,6 +3,8 @@ index interesting stats from the blockchain using bitcoind JSON-RPC
 
 produced by esotericnonsense
 
+## NOTE - this repository is no longer maintained.
+
 ## dependencies
 * tested with python 2.7.3, bitcoind 0.9.2.1
 * jgarzik's bitcoinrpc library (https://github.com/jgarzik/python-bitcoinrpc)
