@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 ###############################################################################
-# bitcoind-chainstats by Amphibian
+# bitcoind-chainstats by esotericnonsense
 # thanks to jgarzik for bitcoinrpc
 # and of course the bitcoin dev team for that bitcoin gizmo, pretty neat stuff
 ###############################################################################

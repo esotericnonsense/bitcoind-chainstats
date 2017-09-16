@@ -1,7 +1,7 @@
 # bitcoind-chainstats
 index interesting stats from the blockchain using bitcoind JSON-RPC
 
-produced by Amphibian (azeteki, atelopus_zeteki)
+produced by esotericnonsense
 
 ## dependencies
 * tested with python 2.7.3, bitcoind 0.9.2.1
