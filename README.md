@@ -42,4 +42,4 @@ my main machine is currently a 6 year old Atom laptop. upgrading that would be r
 
 ![ScreenShot](/img/donation-qr.png)
 
-**1FrogqMmKWtp1AQSyHNbPUm53NnoGBHaBo**
+**bitcoin 3BYFucUnVNhZjUDf6tZweuZ5r9PPjPEcRv**
